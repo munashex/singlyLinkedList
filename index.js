@@ -189,4 +189,137 @@ return true
 var list = new SinglyLinkedList()
 list.unshift("munashe")
 list.unshift("madhuna")
+console.log(list) 
+
+
+
+class Node {
+  constructor(val) {
+    this.val = val
+    this.next = null 
+    this.prev = null
+  }
+} 
+
+class DoublyLinkedList {
+  constructor() {
+    this.head = null 
+    this.tail = null 
+    this.length = 0
+  } 
+
+  push(val) {
+    let newNode = new Node(val) 
+    if(this.length === 0) {
+      this.head = newNode
+      this.tail = this.head 
+    }else {
+      this.tail.next = newNode 
+      newNode.prev =  this.tail  
+      this.tail = newNode
+    } 
+    this.length++
+    return this
+  } 
+
+  unshift(val) {
+    let newNode = new Node(val) 
+    if(!this.head) {
+      this.head = newNode 
+      this.tail = newNode
+    }else { 
+      newNode.next = this.head  
+      this.head.prev = newNode 
+      this.head = newNode
+    }  
+    this.length++
+    return this
+  }
+
+  pop() {
+    if(this.head === null) return null 
+    let poppedTail = this.tail 
+    if(this.length === 1) {
+      this.head = null 
+      this.tail = this.head
+    }else {
+     this.tail = poppedTail.prev  
+     this.tail.next = null 
+     poppedTail.prev = null
+    }  
+    this.length--
+    return poppedTail
+  } 
+
+  shift() {
+    if(this.tail === null) return null 
+    let poppedHead = this.head 
+    if(this.length === 1) {
+      this.head =  null 
+      this.tail = null 
+    }else {
+      this.head = poppedHead.next  
+      this.head.prev = null 
+      poppedHead.next = null
+    }  
+    this.length--
+    return poppedHead
+  } 
+   
+  get(index) {
+  if(index < 0 || index >= this.length) return null 
+  if(index <= this.length / 2) {
+    let counter = 0 
+    let current = this.head 
+
+    while(index !== counter) {
+      counter++ 
+      current = current.next 
+      console.log('starting from half to start')
+    }
+    return current
+  }else { 
+   let counter = this.length - 1 
+   let current = this.tail 
+
+   while(index !== counter) { 
+     counter-- 
+     current = current.prev 
+     console.log('starting from half to end')
+   }
+  }
+  }
+
+  set(index, val) {
+  let founNode = this.get(index) 
+  if(founNode) {
+    founNode.val = val 
+  } 
+  return founNode
+  } 
+
+ insert(index, val) {
+   if(index < 0 || index > this.length) return null 
+   if(index === 0) return this.unshift(val) 
+   if(index === this.length) return this.push(val) 
+
+   let newNode = new Node(val) 
+   let beforeNode = this.get(index - 1) 
+   let afterNode = beforeNode.next
+    beforeNode.next = newNode 
+    newNode.prev = beforeNode  
+    newNode.next =  afterNode 
+    afterNode.prev = newNode
+ }
+}
+
+let list = new DoublyLinkedList() 
+list.push(1)
+list.push(2) 
+list.push(3)
+list.push(4)  
+list.push(5)   
+list.push(6)  
+list.insert(2, "three") 
+console.clear()
 console.log(list)
