@@ -309,7 +309,10 @@ class DoublyLinkedList {
     beforeNode.next = newNode 
     newNode.prev = beforeNode  
     newNode.next =  afterNode 
-    afterNode.prev = newNode
+    afterNode.prev = newNode 
+    
+     this.length++ 
+     return true
  }
 }
 
